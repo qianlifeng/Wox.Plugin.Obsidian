@@ -12,7 +12,7 @@
     "clean": "node -e \"var { rmdirSync, existsSync } = require('fs'), path = require('path'); ['./dist'].forEach(fPath => {if (existsSync(path.join(__dirname, fPath))) rmdirSync(path.join(__dirname, fPath), { recursive: true })}); process.exit(0);\"",
     "clean:all": "pnpm run clean && (rm -r ./node_modules || true)",
     "lint": "eslint --ext .ts --fix src/**/*.ts",
-    "pack": "pnpm build && cp -r images dist && cp -r plugin.json dist && cd dist && zip -r ../Wox.Plugin.Obsidian.wox *.js *.json images"
+    "package": "pnpm build && cp -r images dist && cp -r plugin.json dist && cd dist && zip -r ../Wox.Plugin.Obsidian.wox *.js *.json images"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.15",
