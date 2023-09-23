@@ -1,2 +1,1 @@
-# Wox.Plugin.Obsidian
-Obsidian plugin for Wox
+Wox plugin to manage obsidian vaults

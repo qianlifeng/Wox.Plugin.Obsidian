@@ -1,0 +1,19 @@
+{
+  "Id": "dfe6dbf196104528aae02553e61a2780",
+  "TriggerKeywords": [
+    "ob"
+  ],
+  "Name": "Obsidian",
+  "Description": "Wox plugin to manage obsidian vaults",
+  "Author": "qianlifeng",
+  "Version": "0.0.1",
+  "MinWoxVersion": "2.0.0",
+  "Runtime": "nodejs",
+  "Website": "https://github.com/qianlifeng/Wox.Plugin.Obsidian",
+  "Entry": "index.js",
+  "Icon": "relative:images/app.png",
+  "SupportedOS": [
+    "WINDOWS",
+    "MACOS"
+  ]
+}
