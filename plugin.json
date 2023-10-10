@@ -13,7 +13,7 @@
   "Entry": "index.js",
   "Icon": "relative:images/app.png",
   "SupportedOS": [
-    "WINDOWS",
-    "MACOS"
+    "windows",
+    "darwin"
   ]
 }
