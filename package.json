@@ -29,7 +29,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@wox-launcher/wox-plugin": "^0.0.31",
+    "@wox-launcher/wox-plugin": "^0.0.50",
     "open": "^9.1.0",
     "pinyin-match": "^1.2.4"
   }

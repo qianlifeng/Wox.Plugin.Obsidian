@@ -1,6 +1,6 @@
 import * as path from "path"
 import { resolve } from "path"
-import { PublicAPI, Query, Result, WoxImage } from "@wox-launcher/wox-plugin"
+import { ActionContext, PublicAPI, Query, Result, WoxImage } from "@wox-launcher/wox-plugin"
 import os from "os"
 import * as fs from "fs/promises"
 import PinyinMatch from "pinyin-match"
@@ -79,7 +79,7 @@ async function indexVaults() {
 export const obsidian = {
   init: async (publicAPI: PublicAPI) => {
     api = publicAPI
-    await indexVaults()
+    indexVaults()
   },
   query: async (query: Query): Promise<Result[]> => {
     if (query.Search === "") {
@@ -96,14 +96,19 @@ export const obsidian = {
       results.push({
         Title: file.name,
         SubTitle: file.path,
-        Icon: { ImageType: "RelativeToPluginPath", ImageData: "images/app.png" } as WoxImage,
-        Action: async () => {
-          const url = `obsidian://open?vault=${encodeURIComponent(file.vault)}&file=${encodeURIComponent(file.name)}`
-          await api.Log(`Opening ${url}`)
-          await open(url)
-          return true
-        }
-      })
+        Icon: { ImageType: "relative", ImageData: "images/app.png" } as WoxImage,
+        Actions: [
+          {
+            Name: "Open",
+            Icon: { ImageType: "relative", ImageData: "images/app.png" } as WoxImage,
+            Action: async (actionContext: ActionContext) => {
+              const url = `obsidian://open?vault=${encodeURIComponent(file.vault)}&file=${encodeURIComponent(file.name)}`
+              await api.Log(`Opening ${url}`)
+              await open(url)
+            }
+          }
+        ]
+      } as Result)
     }
     return results
   }
