@@ -7,12 +7,12 @@
     "url": "https://github.com/qianlifeng/Wox.Plugin.Obisidian"
   },
   "scripts": {
-    "build": "pnpm clean && ncc build src/index.ts -o dist && babel dist --out-dir dist",
-    "dev": "pnpm build && mkdir -p ~/.config/wox/plugins/Wox.Plugin.Obsidian && cp -r dist/index.js ~/.config/wox/plugins/Wox.Plugin.Obsidian/ && cp plugin.json ~/.config/wox/plugins/Wox.Plugin.Obsidian/",
+    "build": "pnpm clean && ncc build src/index.ts -o dist && babel dist --out-dir dist && cp -r images dist && cp -r plugin.json dist",
+    "package": "pnpm build && cd dist && zip -r ../Wox.Plugin.Obsidian.wox *.js *.json images",
+    "dev": "nodemon --watch src --watch images --watch plugin.json --ext json,ts,js,mjs,png --exec pnpm run build",
     "clean": "node -e \"var { rmdirSync, existsSync } = require('fs'), path = require('path'); ['./dist'].forEach(fPath => {if (existsSync(path.join(__dirname, fPath))) rmdirSync(path.join(__dirname, fPath), { recursive: true })}); process.exit(0);\"",
     "clean:all": "pnpm run clean && (rm -r ./node_modules || true)",
-    "lint": "eslint --ext .ts --fix src/**/*.ts",
-    "package": "pnpm build && cp -r images dist && cp -r plugin.json dist && cd dist && zip -r ../Wox.Plugin.Obsidian.wox *.js *.json images"
+    "reinstall": "pnpm run clean:all && pnpm install"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.15",
@@ -21,15 +21,16 @@
     "@types/node": "^20.6.0",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.0",
-    "@vercel/ncc": "^0.38.0",
+    "@vercel/ncc": "^0.38.1",
     "babel-plugin-transform-import-meta": "^2.2.1",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "9.0.0",
     "prettier": "3.0.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "nodemon": "^3.0.2"
   },
   "dependencies": {
-    "@wox-launcher/wox-plugin": "^0.0.50",
+    "@wox-launcher/wox-plugin": "^0.0.55",
     "open": "^9.1.0",
     "pinyin-match": "^1.2.4"
   }

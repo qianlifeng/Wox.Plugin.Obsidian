@@ -1,6 +1,6 @@
 import * as path from "path"
 import { resolve } from "path"
-import { ActionContext, PublicAPI, Query, Result, WoxImage } from "@wox-launcher/wox-plugin"
+import { PublicAPI, Query, Result, WoxImage } from "@wox-launcher/wox-plugin"
 import os from "os"
 import * as fs from "fs/promises"
 import PinyinMatch from "pinyin-match"
@@ -38,11 +38,11 @@ async function getVaultPaths() {
     obsidianConfigPath = path.join(os.homedir(), "Library", "Application Support", "obsidian", "obsidian.json")
   }
   if (obsidianConfigPath == "") {
-    await api.Log(`Unsupported platform: ${process.platform}`)
+    await api.Log("Error", `Unsupported platform: ${process.platform}`)
     return
   }
 
-  await api.Log(`Obsidian config path: ${obsidianConfigPath}`)
+  await api.Log("Info", `Obsidian config path: ${obsidianConfigPath}`)
   //read config
   const config = await fs.readFile(obsidianConfigPath, "utf8")
   const configJson = JSON.parse(config)
@@ -73,13 +73,13 @@ async function indexVaults() {
     }
   }
 
-  await api.Log(`Indexed ${files.length} files`)
+  await api.Log("Info", `Indexed ${files.length} files`)
 }
 
 export const obsidian = {
   init: async (publicAPI: PublicAPI) => {
     api = publicAPI
-    indexVaults()
+    await indexVaults()
   },
   query: async (query: Query): Promise<Result[]> => {
     if (query.Search === "") {
@@ -100,15 +100,14 @@ export const obsidian = {
         Actions: [
           {
             Name: "Open",
-            Icon: { ImageType: "relative", ImageData: "images/app.png" } as WoxImage,
-            Action: async (actionContext: ActionContext) => {
+            Action: async () => {
               const url = `obsidian://open?vault=${encodeURIComponent(file.vault)}&file=${encodeURIComponent(file.name)}`
-              await api.Log(`Opening ${url}`)
+              await api.Log("Info", `Opening ${url}`)
               await open(url)
             }
           }
         ]
-      } as Result)
+      })
     }
     return results
   }
