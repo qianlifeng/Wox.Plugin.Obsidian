@@ -30,7 +30,7 @@
     "nodemon": "^3.0.2"
   },
   "dependencies": {
-    "@wox-launcher/wox-plugin": "^0.0.55",
+    "@wox-launcher/wox-plugin": "^0.0.56",
     "open": "^9.1.0",
     "pinyin-match": "^1.2.4"
   }
