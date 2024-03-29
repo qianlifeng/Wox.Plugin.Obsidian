@@ -6,7 +6,7 @@
   "Name": "Obsidian",
   "Description": "Wox plugin to manage obsidian vaults",
   "Author": "qianlifeng",
-  "Version": "0.0.2",
+  "Version": "0.0.3",
   "MinWoxVersion": "2.0.0",
   "Runtime": "nodejs",
   "Website": "https://github.com/qianlifeng/Wox.Plugin.Obsidian",

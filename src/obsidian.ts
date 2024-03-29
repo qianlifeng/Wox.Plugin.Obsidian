@@ -1,6 +1,6 @@
 import * as path from "path"
 import { resolve } from "path"
-import { PublicAPI, Query, Result, WoxImage, WoxPreview } from "@wox-launcher/wox-plugin"
+import { Context, PublicAPI, Query, Result, WoxImage, WoxPreview } from "@wox-launcher/wox-plugin"
 import os from "os"
 import * as fs from "fs/promises"
 import PinyinMatch from "pinyin-match"
@@ -26,7 +26,7 @@ async function getFilesRecursive(dir: string): Promise<string[]> {
   return Array.prototype.concat(...files)
 }
 
-async function getVaultPaths() {
+async function getVaultPaths(ctx: Context) {
   const vaults: string[] = []
   let obsidianConfigPath = ""
   if (process.platform === "win32") {
@@ -38,11 +38,11 @@ async function getVaultPaths() {
     obsidianConfigPath = path.join(os.homedir(), "Library", "Application Support", "obsidian", "obsidian.json")
   }
   if (obsidianConfigPath == "") {
-    await api.Log("Error", `Unsupported platform: ${process.platform}`)
+    await api.Log(ctx, "Error", `Unsupported platform: ${process.platform}`)
     return
   }
 
-  await api.Log("Info", `Obsidian config path: ${obsidianConfigPath}`)
+  await api.Log(ctx, "Info", `Obsidian config path: ${obsidianConfigPath}`)
   //read config
   const config = await fs.readFile(obsidianConfigPath, "utf8")
   const configJson = JSON.parse(config)
@@ -55,9 +55,9 @@ async function getVaultPaths() {
   return vaults
 }
 
-async function indexVaults() {
+async function indexVaults(ctx: Context) {
   files = []
-  const vaults = await getVaultPaths()
+  const vaults = await getVaultPaths(ctx)
   if (vaults === undefined) {
     return
   }
@@ -73,15 +73,15 @@ async function indexVaults() {
     }
   }
 
-  await api.Log("Info", `Indexed ${files.length} files`)
+  await api.Log(ctx, "Info", `Indexed ${files.length} files`)
 }
 
 export const obsidian = {
-  init: async (publicAPI: PublicAPI) => {
+  init: async (ctx: Context, publicAPI: PublicAPI) => {
     api = publicAPI
-    await indexVaults()
+    await indexVaults(ctx)
   },
-  query: async (query: Query): Promise<Result[]> => {
+  query: async (ctx: Context, query: Query): Promise<Result[]> => {
     if (query.Search === "") {
       return []
     }
@@ -126,7 +126,7 @@ export const obsidian = {
             Name: "Open",
             Action: async () => {
               const url = `obsidian://open?vault=${encodeURIComponent(file.vault)}&file=${encodeURIComponent(file.name)}`
-              await api.Log("Info", `Opening ${url}`)
+              await api.Log(ctx, "Info", `Opening ${url}`)
               await open(url)
             }
           }
