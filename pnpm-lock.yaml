@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@wox-launcher/wox-plugin':
-    specifier: ^0.0.63
-    version: 0.0.63
+    specifier: ^0.0.68
+    version: 0.0.68
   open:
     specifier: ^9.1.0
     version: 9.1.0
@@ -1507,8 +1507,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@wox-launcher/wox-plugin@0.0.63:
-    resolution: {integrity: sha512-JHnI5DK2BPYC81DQ/u44xNz5FqBGRDk3/2AWXaMAy5/2HMy/yRz8AOost8PP4FskW0BhzlzjW6TL2YR68Cj1Qg==}
+  /@wox-launcher/wox-plugin@0.0.68:
+    resolution: {integrity: sha512-68WkIpZrjH35FZ+5ras6KBYWi3+mBO5yVfukYC/8yyrM0Dx7azYw90PS2mQpV6a5YMjfeCAA+X/Vyrb9ySnXTA==}
     dev: false
 
   /abbrev@1.1.1:

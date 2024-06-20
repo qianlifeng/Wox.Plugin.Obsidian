@@ -93,34 +93,15 @@ export const obsidian = {
         continue
       }
 
-      let preview = {} as WoxPreview
-      if (file.path.endsWith(".md")) {
-        preview = {
-          PreviewType: "markdown",
-          PreviewData: await fs.readFile(file.path, "utf8"),
-          PreviewProperties: {}
-        }
-      }
-      if (file.path.endsWith(".png") || file.path.endsWith(".jpg") || file.path.endsWith(".jpeg")) {
-        preview = {
-          PreviewType: "image",
-          PreviewData: `absolute:${file.path}`,
-          PreviewProperties: {}
-        }
-      }
-      if (file.path.endsWith(".pdf")) {
-        preview = {
-          PreviewType: "pdf",
-          PreviewData: `${file.path}`,
-          PreviewProperties: {}
-        }
-      }
-
       results.push({
         Title: file.name,
         SubTitle: file.path,
         Icon: { ImageType: "relative", ImageData: "images/app.png" } as WoxImage,
-        Preview: preview,
+        Preview: {
+          PreviewType: "file",
+          PreviewData: `${file.path}`,
+          PreviewProperties: {}
+        } as WoxPreview,
         Actions: [
           {
             Name: "Open",

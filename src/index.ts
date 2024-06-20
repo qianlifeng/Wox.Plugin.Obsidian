@@ -1,5 +1,5 @@
 import { Context, Plugin, PluginInitParams, PublicAPI, Query } from "@wox-launcher/wox-plugin"
-import { obsidian } from "./obsidian" // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { obsidian } from "./obsidian"
 
 let api: PublicAPI
 
